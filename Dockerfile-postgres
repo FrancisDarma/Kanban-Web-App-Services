@@ -1,0 +1,8 @@
+FROM postgres:14
+
+ENV DEBIAN_FRONTEND=noninteractive
+WORKDIR /usr/src/app
+
+COPY ./backup /usr/src/app/backup
+COPY ./script_restore.sh /usr/src/app
+

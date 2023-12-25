@@ -1,0 +1,6 @@
+#cronjob script
+0 0 * * * /usr/src/app/script_backup_2.sh >> /usr/src/app/backup_log/auto_backup_log.txt
+* * * * * echo "Cron Job is Running" >> /var/log/cron.log 2>&1
+
+
+

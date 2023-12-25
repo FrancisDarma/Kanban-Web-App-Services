@@ -1,0 +1,64 @@
+version : '3.8'
+
+services:
+  my-postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile-postgres
+    image: postgres:14
+    container_name: my-postgres-container
+    restart: always
+    environment:
+      POSTGRES_USER: mypostgres
+      POSTGRES_PASSWORD: secretpass
+      POSTGRES_DB: flask-app_db
+    ports:
+      - "5433:5432"
+    networks:
+      - my-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/14/main
+      - postgres-config:/etc/postgresql/14/main
+      - type: bind
+        source: /root/docker_config/final_project/backup
+        target: /usr/src/app/backup
+
+  flask-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flaskapp-container
+    restart: always
+    depends_on:
+      - my-postgres
+    ports:
+      - "5000:5000"
+    environment:
+       DATABASE_URL: 'postgresql://mypostgres:secretpass@my-postgres:5432/flask-app_db'
+    networks:
+      - my-network
+
+  backup-scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile-backup
+    container_name: backup-scheduler-container
+    restart: always
+    depends_on:
+      - my-postgres
+    networks:
+      - my-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/14/main
+      - postgres-config:/etc/postgresql/14/main
+      - type: bind
+        source: /root/docker_config/final_project/backup
+        target: /usr/src/app/backup
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  postgres-config:

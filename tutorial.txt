@@ -1,0 +1,10 @@
+1. Instalasi Library dari file requirements.txt
+2. Generate database, dengan perintah berikut:
+    - flask db init
+    - flask db migrate
+    - flask db upgrade
+3. Jalankan flask dengan perintah:
+    - flask run 
+
+4. contoh untuk koneksi ke postgress, pada file config.py, ganti DB_URI dengan url berikut
+    - "postgresql://{username}:{password}@localhost:5432/{NAMA_DATABASE}"

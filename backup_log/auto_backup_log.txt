@@ -1,0 +1,4 @@
+Cron job started at Fri Dec 22 15:19:01 WIB 2023
+Backup berhasil disimpan di ./backup/backup_231222.sql
+Cron job started at Mon Dec 25 00:00:01 WIB 2023
+Backup berhasil disimpan di ./backup/backup_231225.sql

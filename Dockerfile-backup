@@ -1,0 +1,32 @@
+FROM ubuntu:latest
+
+ENV DEBIAN_FRONTEND=noninteractive
+WORKDIR /usr/src/app
+
+COPY ./backup /usr/src/app/backup
+COPY ./backup_log /usr/src/app/backup_log
+COPY ./script_backup_2.sh /usr/src/app
+COPY ./backup_cron /usr/src/app
+COPY ./script_restore.sh /usr/src/app
+
+#update library dan install cron dan nano
+RUN apt-get update && apt-get -y install sudo \
+ && apt-get -y install cron && apt-get install -y nano \
+ && apt-get install -y postgresql-14 postgresql-contrib \ 
+ && apt-get install -y postgresql-client-14 postgresql-client-common libpq-dev
+
+COPY ./backup_cron /etc/cron.d/backup_cron
+
+#ubah script bash jadi executable
+RUN chmod 0644 /etc/cron.d/backup_cron
+
+#buat logfile pada var/log
+RUN touch /var/log/cron.log
+
+#apply crontab
+RUN crontab /etc/cron.d/backup_cron
+
+ENTRYPOINT ["/bin/sh","-c","echo 'Container is running'; cron -f && sudo service cron start"]
+
+
+
