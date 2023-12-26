@@ -34,10 +34,15 @@ In this project, the steps that being executed are:
        ![image](https://github.com/FrancisDarma/Kanban-Web-App-Services/assets/115353523/11b54e8f-d031-4974-904a-b26b43a88b5c)
      - The backup will be executed once a day.
 13. ### Restore Backup:
-    - To restore the database, activate my-postgres services and connect to database using `psql -h my-postgres-container -U mypostgres -d flask-app_db` and execute `DELETE FROM flask-app_db`.
-      
+    - To restore the database, activate my-postgres services and connect to database using `psql -h my-postgres-container -U mypostgres -d flask-app_db`, input password `secretpass` and execute `DELETE FROM users;` and `DELETE FROM tasks;`.
+      ![image](https://github.com/FrancisDarma/Kanban-Web-App-Services/assets/115353523/bf498407-5894-48c9-a399-a052e3f75562)
+      ![image](https://github.com/FrancisDarma/Kanban-Web-App-Services/assets/115353523/d48e61f2-cf0a-4fe0-8817-d768dc45a522)
     - Open localhost:5000 and try to sign it. If sign in attempt failed, the `DELETE` command has been properly executed.
-      
-    - After the table has been emptied, execute `bash script_restore.sh` command in the container.
-      
+      ![image](https://github.com/FrancisDarma/Kanban-Web-App-Services/assets/115353523/0bcac43c-48d3-4000-a68f-880e145504c4)
+    - After the table has been emptied, execute `bash script_restore.sh` command in the container. The output will be like this example:
+      ![image](https://github.com/FrancisDarma/Kanban-Web-App-Services/assets/115353523/a5d96ed9-e2a6-43f7-8ff0-b864c43e3040)
     - Open localhost:5000 and try to sign it again. If sign in attempt succeed, then database restore script has been execute properly.
+      ![image](https://github.com/FrancisDarma/Kanban-Web-App-Services/assets/115353523/b0bfa106-3db6-494e-95d8-be14f4a9cae9)
+      ![image](https://github.com/FrancisDarma/Kanban-Web-App-Services/assets/115353523/4b4c6ea2-b469-45ec-8fd2-4278f3768675)
+
+
