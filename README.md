@@ -24,8 +24,11 @@ In this project, the steps that being executed are:
      - After the services has been running, activate flask-app services by `docker-compose exec -it flask-app bash` command.
      - Inside the container execute `flask db migrate` and `flask db upgrade`.
      - In web browser open the localhost:5000, to check if flask-app services has run properly and sign in/register to check the app connectivity with PostgreSQL database.
-12. Run backup-scheduler service and execute `crontab -l` command to find list of cronjob schedules.
-13. To restore the database, activate my-postgres services and connect to database using `psql -h my-postgres-container -U mypostgres -d flask-app_db` and execute `DELETE FROM flask-app_db`.
-14. Open localhost:5000 and try to sign it. If sign in attempt failed, the `DELETE` command has been properly executed.
-15. After the table has been emptied, execute `bash script_restore.sh` command in the container.
-16. Open localhost:5000 and try to sign it again. If sign in attempt succeed, then database restore script has been execute properly.
+8. ### Backup Cronjob service:
+     - Run backup-scheduler service and execute `crontab -l` command to find list of cronjob schedules. The `crontab -e` command should have been automatically set in Dockerfile-backup. The `crontab -l` should looked like this image:
+     - 
+13. ### Restore Backup:
+    - To restore the database, activate my-postgres services and connect to database using `psql -h my-postgres-container -U mypostgres -d flask-app_db` and execute `DELETE FROM flask-app_db`.
+    - Open localhost:5000 and try to sign it. If sign in attempt failed, the `DELETE` command has been properly executed.
+    - After the table has been emptied, execute `bash script_restore.sh` command in the container.
+    - Open localhost:5000 and try to sign it again. If sign in attempt succeed, then database restore script has been execute properly.
